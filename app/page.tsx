@@ -1,139 +1,13 @@
-"use client" // Add this directive for useState and other client-side hooks
-
+import type { Metadata } from "next"
+import Header from "@/components/header"
 import { Facebook, Instagram, Twitter } from "lucide-react"
-import React, { useState } from "react"
+import React from "react"
+import Image from "next/image"
 
-// --- SVG Icons for a more thematic feel ---
-const MenuIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-6 w-6"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M4 6h16M4 12h16m-7 6h7"
-    />
-  </svg>
-)
-
-const CloseIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-6 w-6"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M6 18L18 6M6 6l12 12"
-    />
-  </svg>
-)
-
-const SocialIcon = ({ path, url }: { path: string; url: string }) => (
-  <a
-    href={url}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="text-stone-400 hover:text-amber-400 transition-colors duration-300"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-7 w-7"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-    >
-      <path d={path} />
-    </svg>
-  </a>
-)
-
-// --- Main Components ---
-const Header = () => {
-  const [isOpen, setIsOpen] = useState(false)
-
-  const navLinks = [
-    { name: "Lore", href: "#lore" },
-    { name: "Factions", href: "#factions" },
-    { name: "Gallery", href: "#gallery" },
-    { name: "Chronicles", href: "#chronicles" },
-  ]
-
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/80 to-black/30 backdrop-blur-sm shadow-lg shadow-black/30">
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <div
-          className="text-3xl font-cinzel font-bold text-amber-300 tracking-wider"
-          style={{ textShadow: "0 0 10px rgba(252, 211, 77, 0.7)" }}
-        >
-          AETHELGARD
-        </div>
-
-        <nav className="hidden md:flex items-center space-x-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-stone-300 hover:text-amber-400 font-merriweather text-lg transition-colors duration-300 border-b-2 border-transparent hover:border-amber-400/50 pb-1"
-            >
-              {link.name}
-            </a>
-          ))}
-        </nav>
-
-        <a
-          href="#preorder"
-          className="hidden md:block bg-amber-600/80 text-white font-bold py-2 px-6 rounded-sm border-2 border-amber-500 hover:bg-amber-500 transition-all duration-300 shadow-md hover:shadow-amber-400/20"
-        >
-          Pre-order
-        </a>
-
-        <div className="md:hidden">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="text-stone-300 hover:text-amber-400"
-          >
-            {isOpen ? <CloseIcon /> : <MenuIcon />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <div
-        className={`md:hidden ${
-          isOpen ? "block" : "hidden"
-        } bg-black/90 backdrop-blur-md`}
-      >
-        <nav className="flex flex-col items-center space-y-4 px-6 pt-2 pb-6">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              className="text-stone-300 hover:text-amber-400 font-merriweather text-lg transition-colors duration-300 py-2"
-            >
-              {link.name}
-            </a>
-          ))}
-          <a
-            href="#preorder"
-            onClick={() => setIsOpen(false)}
-            className="bg-amber-600/80 text-white font-bold mt-4 py-2 px-8 rounded-sm border-2 border-amber-500 hover:bg-amber-500 transition-all duration-300 shadow-md"
-          >
-            Pre-order Now
-          </a>
-        </nav>
-      </div>
-    </header>
-  )
+export const metadata: Metadata = {
+  title: "Aethelgard: Echoes of the Elder Kings",
+  description:
+    "In a land scarred by ancient wars and sleeping magic, a new shadow stirs. Will you answer the call?",
 }
 
 const HeroSection = () => (
@@ -256,6 +130,44 @@ const FactionsSection = () => (
   </section>
 )
 
+const galleryImages = [
+  {
+    url: "/images/1.png",
+    description: "Ancient temple glowing with magic as the Elder Rings awaken.",
+  },
+  {
+    url: "/images/2.png",
+    description: "Medieval fantasy city of Aethelgard bathed in sunset light.",
+  },
+  {
+    url: "/images/3.png",
+    description: "Dwarven forge deep underground glowing with molten light.",
+  },
+  {
+    url: "/images/4.png",
+    description: "Enchanted forest where elves weave threads of natural magic.",
+  },
+  {
+    url: "/images/5.png",
+    description: "Camp of wanderers among ruined stone arches and torchlight.",
+  },
+  {
+    url: "/images/6.png",
+    description:
+      "Crumbling statues under a crimson sky as magic reshapes the land.",
+  },
+  {
+    url: "/images/7.png",
+    description:
+      "Traveler explores an ancient tomb lit by a single glowing lantern.",
+  },
+  {
+    url: "/images/8.png",
+    description:
+      "Ruins and nature reborn as streams of magic return to the world.",
+  },
+]
+
 const GallerySection = () => (
   <section
     id="gallery"
@@ -269,19 +181,19 @@ const GallerySection = () => (
         Whispers of the World
       </h2>
       <div className="w-24 h-1 bg-amber-500/50 mx-auto mb-12"></div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {Array.from({ length: 8 }).map((_, index) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        {galleryImages.map((image, index) => (
           <div
             key={index}
             className="overflow-hidden rounded-lg border-2 border-stone-700 group"
           >
-            <img
-              src={`https://placehold.co/600x400/1c1917/eab308?text=Scene+${
-                index + 1
-              }`}
-              alt={`Gallery image ${index + 1}`}
+            <Image
+              src={image.url}
+              alt={image.description}
               className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500 cursor-pointer"
               loading="lazy"
+              width={1024}
+              height={1024}
             />
           </div>
         ))}
